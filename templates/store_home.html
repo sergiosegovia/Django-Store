@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Store Home{% endblock %}
+
+{% block content %}
+  <h1>Store Home</h1>
+
+  {% if user.is_authenticated %}
+  <h3>Hi <a href="{% url 'userprofile:profile' %}">{{ user.username }}</a> you can <a href="{% url 'create_product' %}">create a new product</a> or <a href="{% url 'userprofile:logout' %}">logout</a></h3>
+  {% else %}
+  <h3>Welcome visitor. Now you can <a href="{% url 'userprofile:login_view' %}">login</a> or <a href="{% url 'userprofile:login_view' %}">register</a></h3>
+  {% endif %}
+
+  {% for p in product %}
+  <div class="product">
+    <div class="product-data">
+      <a href="{% url 'product_detail' slug=p.slug %}">
+        <h3>{{ p.name }}</h3>
+      </a>
+      <p>{{ p.description }}</p>
+    </div>
+
+    <div class="product-img">
+      <a href="{% url 'product_detail' slug=p.slug %}">
+        <img src="{{ p.image.url }}" alt="{{ p.name }}">
+      </a>
+    </div>
+  </div>
+  {% endfor %}
+{% endblock %}

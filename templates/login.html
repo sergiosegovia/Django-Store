@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Login / Signup{% endblock %}
+
+{% block login %}
+
+  {%  if user.is_authenticated %}
+  <h3>Hi {{ user.username }} you are logged in. Go to <a href="{% url 'userprofile:profile' %}">your profile</a></h3>
+  {% else %}
+  <div class="login">
+    <h1>Login</h1>
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="login">
+      <input type="text" name="username">
+      <input type="password" name="password">
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <div class="register">
+    <h1>Register</h1>
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="register">
+      <input type="text" name="username">
+      <input type="password" name="password">
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  {% endif %}
+{% endblock %}
